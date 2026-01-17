@@ -1,0 +1,409 @@
+/* Dashboard Carlos AI - Custom CSS */
+
+:root {
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --border-radius: 10px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Layout General */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px 0;
+}
+
+.container-fluid {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin: 0 20px;
+    box-shadow: var(--box-shadow);
+    min-height: calc(100vh - 40px);
+}
+
+/* Header */
+.dashboard-header {
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 3px solid var(--primary-color);
+    margin-bottom: 30px;
+}
+
+.dashboard-title {
+    color: var(--dark-color);
+    font-size: 2.5em;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-title i {
+    color: var(--primary-color);
+    margin-right: 15px;
+}
+
+.dashboard-subtitle {
+    color: #666;
+    font-size: 1.2em;
+    margin: 10px 0 0 0;
+    font-weight: 300;
+}
+
+/* Tarjetas de Métricas */
+.metric-card {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    height: 120px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.metric-icon {
+    font-size: 3em;
+    margin-right: 20px;
+    opacity: 0.8;
+}
+
+.metric-content {
+    flex: 1;
+}
+
+.metric-number {
+    font-size: 2.2em;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.metric-label {
+    font-size: 1em;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* Contenedores de Gráficos */
+.chart-container {
+    background: white;
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: 1px solid #e0e6ed;
+    height: 400px;
+}
+
+.chart-title {
+    color: var(--dark-color);
+    font-size: 1.3em;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--light-color);
+}
+
+.chart-canvas {
+    position: relative;
+    height: calc(100% - 60px);
+    width: 100%;
+}
+
+/* Contenedores de Tablas */
+.table-container {
+    background: white;
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: 1px solid #e0e6ed;
+    height: 200px;
+}
+
+.table-title {
+    color: var(--dark-color);
+    font-size: 1.3em;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--light-color);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 1em;
+}
+
+.data-table td:first-child {
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+.table-value {
+    text-align: right;
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.1em;
+}
+
+/* Embudo de Estados */
+.embudo-container {
+    background: white;
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border: 1px solid #e0e6ed;
+    height: 400px;
+}
+
+.embudo-content {
+    height: calc(100% - 60px);
+    overflow-y: auto;
+}
+
+.embudo-item {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 12px 20px;
+    margin-bottom: 8px;
+    border-radius: var(--border-radius);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.embudo-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.embudo-item:nth-child(1) { width: 100%; }
+.embudo-item:nth-child(2) { width: 85%; margin-left: 7.5%; }
+.embudo-item:nth-child(3) { width: 70%; margin-left: 15%; }
+.embudo-item:nth-child(4) { width: 55%; margin-left: 22.5%; }
+.embudo-item:nth-child(5) { width: 40%; margin-left: 30%; }
+.embudo-item:nth-child(6) { width: 25%; margin-left: 37.5%; }
+.embudo-item:nth-child(7) { width: 15%; margin-left: 42.5%; }
+
+.embudo-estado {
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.embudo-cantidad {
+    font-size: 1.1em;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+/* Controles */
+.controls-container {
+    background: var(--light-color);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    border: 1px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.btn {
+    border-radius: var(--border-radius);
+    padding: 10px 20px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+}
+
+.btn-success {
+    background: linear-gradient(45deg, var(--success-color), #20c997);
+}
+
+/* Estados de Carga */
+.loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid transparent;
+    border-top: 2px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Mensajes de Estado */
+.alert {
+    border-radius: var(--border-radius);
+    border: none;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.alert-success {
+    background: linear-gradient(45deg, #d4edda, #c3e6cb);
+    color: #155724;
+}
+
+.alert-danger {
+    background: linear-gradient(45deg, #f8d7da, #f5c6cb);
+    color: #721c24;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px 0;
+    }
+    
+    .container-fluid {
+        margin: 0 10px;
+        padding: 20px;
+    }
+    
+    .dashboard-title {
+        font-size: 2em;
+    }
+    
+    .metric-card {
+        height: auto;
+        padding: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .metric-icon {
+        font-size: 2.5em;
+        margin-right: 15px;
+    }
+    
+    .metric-number {
+        font-size: 1.8em;
+    }
+    
+    .chart-container,
+    .table-container,
+    .embudo-container {
+        height: auto;
+        min-height: 300px;
+    }
+    
+    .controls-container {
+        text-align: center;
+    }
+    
+    .controls-container .btn {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .dashboard-title {
+        font-size: 1.8em;
+    }
+    
+    .dashboard-title i {
+        display: block;
+        margin: 0 0 10px 0;
+    }
+    
+    .embudo-item {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease forwards;
+}
+
+/* Tooltips personalizados */
+.tooltip-custom {
+    position: relative;
+    cursor: help;
+}
+
+.tooltip-custom::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--dark-color);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.8em;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 1000;
+}
+
+.tooltip-custom:hover::after {
+    opacity: 1;
+}

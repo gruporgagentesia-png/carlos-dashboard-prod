@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Carlos AI - Sistema de Evaluación Crediticia</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    
+    <!-- Custom CSS -->
+    {% load static %}
+    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="dashboard-header">
+                    <h1 class="dashboard-title">
+                        <i class="fas fa-chart-line"></i>
+                        Dashboard Carlos AI
+                    </h1>
+                    <p class="dashboard-subtitle">Sistema de Evaluación Crediticia - Producción</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Métricas Principales -->
+        <div class="row mb-4">
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="metric-content">
+                        <div class="metric-number" id="totalConversaciones">{{ metricas.total_conversaciones|default:"-" }}</div>
+                        <div class="metric-label">Total Conversaciones</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="metric-content">
+                        <div class="metric-number" id="tiempoPromedio">{{ metricas.tiempo_promedio|default:"-" }} min</div>
+                        <div class="metric-label">Tiempo Promedio</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="metric-content">
+                        <div class="metric-number" id="interaccionesPromedio">{{ metricas.interacciones_promedio|default:"-" }}</div>
+                        <div class="metric-label">Interacciones Promedio</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="metric-content">
+                        <div class="metric-number" id="eficiencia">{{ metricas.eficiencia|default:"-" }}%</div>
+                        <div class="metric-label">Eficiencia</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráficos Principales -->
+        <div class="row mb-4">
+            <div class="col-lg-8 mb-3">
+                <div class="chart-container">
+                    <h3 class="chart-title">📈 Conversaciones Generadas por Día</h3>
+                    <div class="chart-canvas">
+                        <canvas id="conversacionesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-3">
+                <div class="chart-container">
+                    <h3 class="chart-title">💰 Distribución por Rangos de Ingresos</h3>
+                    <div class="chart-canvas">
+                        <canvas id="rangosIngresosChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tablas de Datos y Embudo -->
+        <div class="row mb-4">
+            <div class="col-lg-4 mb-3">
+                <div class="table-container">
+                    <h3 class="table-title">🏠 Estado de Hipoteca</h3>
+                    <table class="data-table" id="tablaHipoteca">
+                        <tr>
+                            <td>Con Hipoteca (SI)</td>
+                            <td class="table-value" id="hipotecaSi">-</td>
+                        </tr>
+                        <tr>
+                            <td>Sin Hipoteca (NO)</td>
+                            <td class="table-value" id="hipotecaNo">-</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-3">
+                <div class="table-container">
+                    <h3 class="table-title">📊 Resumen del Sistema</h3>
+                    <table class="data-table">
+                        <tr>
+                            <td>Estados Definidos</td>
+                            <td class="table-value">7</td>
+                        </tr>
+                        <tr>
+                            <td>Campos de Datos</td>
+                            <td class="table-value">45</td>
+                        </tr>
+                        <tr>
+                            <td>Entidades Financieras</td>
+                            <td class="table-value">6</td>
+                        </tr>
+                        <tr>
+                            <td>Segmentos Laborales</td>
+                            <td class="table-value">6</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Embudo de Estados -->
+            <div class="col-lg-4 mb-3">
+                <div class="embudo-container">
+                    <h3 class="chart-title">🎯 Embudo de Estados de Lead</h3>
+                    <div class="embudo-content" id="embudoContainer">
+                        <!-- Los datos del embudo se cargan dinámicamente -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controles de Actualización -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="controls-container">
+                    <button class="btn btn-primary me-2" onclick="actualizarDashboard()">
+                        <i class="fas fa-sync-alt"></i> Actualizar Dashboard
+                    </button>
+                    <button class="btn btn-success me-2" onclick="sincronizarGoogleSheets()">
+                        <i class="fab fa-google"></i> Sincronizar Google Sheets
+                    </button>
+                    <small class="text-muted">
+                        Última actualización: <span id="ultimaActualizacion">{{ now|date:"d/m/Y H:i" }}</span>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="{% static 'js/dashboard.js' %}"></script>
+    
+    <!-- Inicializar Dashboard -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDashboard();
+        });
+    </script>
+</body>
+</html>
